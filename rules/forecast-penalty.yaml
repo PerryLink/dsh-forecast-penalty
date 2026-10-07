@@ -1,0 +1,195 @@
+# 预测准确率考核核对 规则库
+#
+# 规则数据与代码分离：替换本文件即可切换规则集版本，无需改动 TypeScript。
+#
+# 条款引用纪律（由 shared/ruleset.ts 强制校验）：
+#   - 每条规则必须写全 document / number / clause / excerpt / kind / source，
+#     且 excerpt 必须是逐字摘录，不得改写。
+#   - kind: direct                       条款直接规定了所检查的要求
+#   - kind: derived-from-principle       条款未直接规定，仅能由原则性条款推论（severity 最多 warn）
+#   - kind: institutional-configuration 阈值出自本机构配置（severity 最多 info）
+#
+# ⚠️⚠️ 本规则库最重要的说明：**考核规则是市场规则，不是国家标准，而且本规则库不假装有。**
+#   本插件核对的是"新能源功率预测准确率考核台账"的**算术自洽**：
+#     准确率是否等于 1 − |预测值 − 实际值| ÷ 实际值（或本机构口径的等价式），
+#     考核费用是否等于（准确率与门槛的差值）× 考核单价 × 规模。
+#   准确率的定义、免考核门槛、考核单价与结算口径**由各电力市场的考核办法与并网调度协议规定**，
+#   各省（区域）市场差别很大（有的按 1−偏差率，有的按均方根误差，有的分时段分档考核），
+#   **不存在全国统一标准**。因此每条规则的 basis 都如实写明
+#   "本条依据为算术自洽或本机构配置的考核口径，不存在可引用的标准条文"。
+#
+# ⚠️⚠️ 另一条**必须保留**的边界：**本插件绝不判定考核费用是否应当收取、
+#   准确率是否达标、是否应当减免或申诉**。
+#   那取决于考核办法的具体条款、免考核情形与争议处理程序，是交易与调度的判断。
+#   → 因此本插件只核对**台账自身的齐备与算术**：
+#     预测值、实际值、准确率是否可解析、准确率是否符合配置的定义式、
+#     考核费用是否符合配置的算式、币制是否合乎格式、考核期是否重复、是否残留占位符。
+#   → **准确率定义式（accuracyFormula）与考核算式（penaltyFormula）都写在规则参数里**，
+#     本插件**不内置任何市场的考核口径**；口径不同时改规则库即可，无需改代码。
+
+plugin: dsh-forecast-penalty
+version: "2026.1"
+
+rules:
+  - id: FP-001
+    title: 考核台账应填写考核期与考核对象
+    severity: warn
+    basis:
+      document: 电力市场考核办法与并网调度协议（无国家标准）
+      number: 无统一标准（本条依据为台账可追溯性）
+      clause: 不属于标准条款（本条为台账齐备性核对）
+      excerpt: 本条依据为台账可追溯性要求，不存在可引用的标准条文；本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.gov.cn/
+    params:
+      check:
+        kind: headerPresence
+        fields: [subject, market]
+    note: >-
+      考核台账若不写明考核对象与市场类型，费用无法与具体的场站、具体的考核办法对应，
+      核对与结算都失去落点。**本条没有标准条文可引**——
+      考核办法由各电力市场规定，不存在全国统一标准，故按可追溯性这一功能前提判定并封顶 warn。
+      配置项 subject 对应材料顶层的考核对象（场站或机组），market 对应市场类型。
+
+  - id: FP-002
+    title: 预测值、实际值与准确率应为可解析的数值
+    severity: warn
+    basis:
+      document: 电力市场考核办法与并网调度协议（无国家标准）
+      number: 无统一标准（本条依据为算术可行性）
+      clause: 不属于标准条款（本条为数值可解析性核对）
+      excerpt: 本条依据为考核算术可行的要求，不存在可引用的标准条文；本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.gov.cn/
+    params:
+      check:
+        kind: number
+        field: forecastValue
+        fix: 预测值应填写数字；本条只核对可解析性，不判断预测是否准确
+    note: >-
+      预测值可解析是准确率与考核费用算得出来的前提。**本条没有标准条文可引**，
+      故按算术可行性判定并封顶 warn。
+      本条**只核对能否解析为数值**（接受 `1,200`、`1200.50`、`50%` 这类写法），
+      **绝不判断预测是否准确**。
+      实际值与准确率是否为可解析数值，把 field 分别改为 actualValue、accuracy 各加一条即可。
+
+  - id: FP-003
+    title: 准确率应符合本机构市场口径的定义式
+    severity: info
+    basis:
+      document: 电力市场考核办法与并网调度协议（无国家标准）
+      number: 无统一标准（本条依据为本机构配置的准确率定义式）
+      clause: 不属于标准条款（本条为定义式核对）
+      excerpt: 本条依据为本机构配置的准确率定义式，不存在可引用的标准条文；本规则库不伪造引文。
+      kind: institutional-configuration
+      source: https://www.gov.cn/
+    params:
+      check:
+        kind: formula
+        resultField: accuracy
+        expression:
+          op: percent
+          fields: [forecastValue, actualValue]
+        tolerance: 1.5
+    note: >-
+      ⚠️ **出厂的定义式是"准确率 = 预测值 ÷ 实际值 × 100"，容差 1.5 个百分点**——
+      这只是**一种常见口径的示例**，不是任何市场的考核公式，也不是标准规定。
+      依据说明：准确率的定义**由各电力市场的考核办法规定**，常见写法包括
+      `1 − |预测 − 实际| ÷ 实际`、`1 − 均方根误差`、分时段分档计算等，
+      各口径算出的数值差别很大。本插件**不假装知道贵市场的口径**。
+      **使用前必须做一件事**：把 `expression` 改成贵市场考核办法里的定义式，或停用本条。
+      本条只做算术核对，**不判断考核办法适用是否正确、是否应当减免**。
+
+  - id: FP-004
+    title: 考核费用应等于超出免考核门槛的部分乘以考核单价
+    severity: info
+    basis:
+      document: 电力市场考核办法与并网调度协议（无国家标准）
+      number: 无统一标准（本条依据为本机构配置的考核算式）
+      clause: 不属于标准条款（本条为算式核对）
+      excerpt: 本条依据为本机构配置的考核算式，不存在可引用的标准条文；本规则库不伪造引文。
+      kind: institutional-configuration
+      source: https://www.gov.cn/
+    params:
+      check:
+        kind: formula
+        resultField: penalty
+        expression:
+          op: product
+          fields: [penaltyBase, penaltyRate]
+        tolerance: 0.01
+    note: >-
+      本条核对 `考核费用 = 考核基数 × 考核单价`。**考核基数由使用方按本办法算出后填入台账**
+      （例如"准确率低于门槛的部分 × 结算电量"），因为门槛、分档与规模口径**由各市场考核办法规定**，
+      本插件**不替使用方推算**，也不内置任何单价。
+      依据说明：本条**没有标准条文可引**，故按算式自洽判定并封顶 info。
+      容差出厂 0.01，用于容纳小数进位。
+      本条**不判断考核费用是否应当收取、是否应当减免**——那取决于考核办法的免考核情形与争议处理程序。
+
+  - id: FP-005
+    title: 币制应使用三位字母代码
+    severity: warn
+    basis:
+      document: 《表示货币的代码》
+      number: GB/T 12406—2022（表示货币的代码；2022-12-30 发布并实施；全部代替 GB/T 12406—2008（该版名称为「表示货币和资金的代码」）——注意旧版名称含"资金"；修改采用 ISO 4217:2015，非等同采用；条号本次未取得）
+      clause: 关于货币代码的规定（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得 GB/T 12406 的逐字原文，本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=196111BC23AC8BDA0BE2C44F2C32F6CF
+    params:
+      check:
+        kind: pattern
+        field: currency
+        pattern: ^[A-Z]{3}$
+        fix: 币制应写成三位大写字母代码（如 CNY、USD）；人民币的代码请按本机构口径填写
+    note: >-
+      币制只有写成统一的三位字母代码，考核费用才能与其他台账比对与汇总。
+      这一层是纯格式判断，不涉及任何实质认定；本次未取得明文条号，故封顶 warn。
+      **特别提示**：人民币在 ISO 4217 中的代码是 **CNY**，
+      而电力市场结算单据上 CNY 与"元"两种写法并存；
+      本插件**不替使用方规定该用哪个**——若本机构一律用某个写法，把 pattern 收紧即可。
+      本条**不判断币制选择是否正确**——那取决于实际结算币别与合同约定。
+
+  - id: FP-006
+    title: 考核期不应在台账内重复
+    severity: warn
+    basis:
+      document: 电力市场考核办法与并网调度协议（无国家标准）
+      number: 无统一标准（本条依据为台账唯一性）
+      clause: 不属于标准条款（本条为台账唯一性核对）
+      excerpt: 本条依据为台账唯一性要求，不存在可引用的标准条文；本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.gov.cn/
+    params:
+      check:
+        kind: unique
+        field: period
+    note: >-
+      同一考核期在台账里出现两次，会让人无法判断是重复登记还是确有两次考核，
+      费用累计也会因此重复计算。**本条没有标准条文可引**，故按可核对性判定并封顶 warn。
+      比较时忽略空白字符。命中需人工确认：
+      同一考核期分时段（峰／平／谷）分别考核的情况确实可能产生多行，
+      此时应在备注栏说明或使用不同的考核期标识，而不是简单删除。
+
+  - id: FP-007
+    title: 台账备注栏不应残留未替换的占位符
+    severity: warn
+    basis:
+      document: 电力市场考核办法与并网调度协议（无国家标准）
+      number: 无统一标准（本条依据为台账真实性）
+      clause: 不属于标准条款（本条为台账真实性核对）
+      excerpt: 本条依据为台账内容真实性要求，不存在可引用的标准条文；本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.gov.cn/
+    params:
+      check:
+        kind: containsAny
+        field: note
+        terms: ['【', '】', '{{', '}}', 'XXX', 'xxx', '待填', '待补充', 'TBD', 'todo', '示例']
+        fix: 备注栏应填写实际内容；残留占位符说明台账是照模板抄的
+    note: >-
+      台账若直接照抄模板，备注栏留下【】、XXX、待填、TBD 之类占位符时，
+      会让人误以为已经核对了实际考核——**这是台账类工具最危险的失效方式**。
+      **本条没有标准条文可引**，故封顶 warn。terms 可按本机构模板调整。
+
+disabled: []
