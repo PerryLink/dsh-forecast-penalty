@@ -44,8 +44,7 @@ exemption cases and the dispute procedure.**
 ## Install
 
 ```sh
-pnpm pack
-dsh plugin --profile <name> add ./*.tgz
+dsh plugin --profile <name> add dsh-forecast-penalty
 dsh --profile <name> --dump-config | grep 'dsh-forecast-penalty'
 ```
 
