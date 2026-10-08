@@ -1,4 +1,29 @@
-# dsh-forecast-penalty
+# dsh-forecast-penalty — Registo de avaliação da precisão da previsão e verificação aritmética do encargo de avaliação
+
+`dsh-forecast-penalty` lê um registo de avaliação da precisão da previsão —o cabeçalho mais uma linha por período de avaliação— e verifica a completude e a aritmética desse mesmo registo: se o período, o sujeito avaliado e o tipo de mercado estão identificados, se os valores de previsão, valor real e precisão são analisáveis como números, se a precisão registada concorda com a fórmula de definição que você configurar e o encargo de avaliação com a fórmula de cálculo que você configurar, se a moeda está escrita como código de três letras, se não há períodos de avaliação repetidos e se não resta nenhum marcador de modelo na coluna de observações. Toda a verificação que não possa ser executada é reportada em `skipped` com o respetivo motivo.
+
+## O que ele responde
+
+| Você pergunta | O que ele responde |
+|---|---|
+| O registo não diz que central nem que mercado abrange, e uma linha traz `--` como valor de previsão. | `FP-001` exige que o sujeito avaliado e o tipo de mercado estejam identificados, e `FP-002` que o valor de previsão seja analisável como número, pelo que um `--` é reportado. `FP-001` verifica que ambos estão preenchidos, não que o nome da central seja o correto, e `FP-002` não decide se a previsão foi acertada. |
+| A precisão que registo não coincide com a fórmula de definição do meu mercado, e o encargo também não com base vezes tarifa unitária. | `FP-003` compara o valor registado com a fórmula de definição configurada no pacote de regras —a expressão de fábrica é uma convenção comum e um exemplo, não a regra do seu mercado: substitua `expression` ou desative a regra— com uma tolerância de 1,5 pontos. `FP-004` compara o encargo com `考核基数 × 考核单价` com uma tolerância de 0,01; a base é introduzida por você. Nenhuma das duas decide se o método de avaliação é aplicável nem se o encargo deve ser cobrado. |
+| A coluna da moeda está vazia em algumas linhas e noutras diz `元`. | `FP-005` exige um código de três letras maiúsculas como CNY ou USD, pelo que tanto a célula vazia como o `元` são reportados; o limite da regra é que avalia apenas o formato e não decide que código a sua instituição deve usar para o renminbi. Também não decide se a moeda escolhida é a correta. |
+| O mesmo período de avaliação aparece em mais do que uma linha. | `FP-006` reporta um período repetido, porque a duplicação faz o encargo acumular duas vezes e deixa sem saber se o período foi registado duas vezes ou avaliado duas vezes; a comparação ignora os espaços. Um mesmo período avaliado por faixas horárias e blocos produz legitimamente várias linhas: distinga-as na coluna de observações ou com outro identificador de período, ou desative a regra. Não decide qual das linhas é a duplicada. |
+| A coluna de observações ainda contém `【】`, `XXX` ou `TBD`. | `FP-007` reporta a linha quando a coluna de observações contém um dos marcadores configurados no pacote de regras, porque um registo copiado de um modelo leva a supor que a avaliação foi mesmo feita. A lista `terms` é sua para ajustar, e a regra não decide se o texto da observação é verdadeiro. |
+| Falta uma coluna inteira no meu material — a regra passa em silêncio? | Não. As regras por coluna (`FP-002`, `FP-005`, `FP-006`, `FP-007`) reportam-se a si mesmas em `skipped` com o motivo de que o material não traz essa coluna, e o relatório distingue esse caso do de uma regra que foi executada e não encontrou nenhuma linha com diferenças. Uma verificação que nunca foi executada não é apresentada como superada. |
+
+## Normas que segue
+
+| Documento | Número | Regras que o citam |
+|---|---|---|
+| 电力市场考核办法与并网调度协议（无国家标准） | 无统一标准（本条依据为台账可追溯性） | FP-001 |
+| 电力市场考核办法与并网调度协议（无国家标准） | 无统一标准（本条依据为算术可行性） | FP-002 |
+| 电力市场考核办法与并网调度协议（无国家标准） | 无统一标准（本条依据为本机构配置的准确率定义式） | FP-003 |
+| 电力市场考核办法与并网调度协议（无国家标准） | 无统一标准（本条依据为本机构配置的考核算式） | FP-004 |
+| 《表示货币的代码》 | GB/T 12406—2022（表示货币的代码；2022-12-30 发布并实施；全部代替 GB/T 12406—2008（该版名称为「表示货币和资金的代码」）——注意旧版名称含"资金"；修改采用 ISO 4217:2015，非等同采用；条号本次未取得） | FP-005 |
+| 电力市场考核办法与并网调度协议（无国家标准） | 无统一标准（本条依据为台账唯一性） | FP-006 |
+| 电力市场考核办法与并网调度协议（无国家标准） | 无统一标准（本条依据为台账真实性） | FP-007 |
 
 **Boundary:** this plugin checks a **预测准确率考核台账** for arithmetic — that the period and subject are
 identified, that forecast and actual figures parse, that the accuracy figure matches the definition formula

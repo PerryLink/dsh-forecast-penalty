@@ -1,4 +1,29 @@
-# dsh-forecast-penalty
+# dsh-forecast-penalty — Forecast-accuracy assessment register and assessment-charge arithmetic verification
+
+`dsh-forecast-penalty` reads one forecast-accuracy assessment register — the subject header plus one row per assessment period — and verifies that register's own completeness and arithmetic: that the period, the subject and the market are identified, that the forecast, actual and accuracy figures parse as numbers, that the stored accuracy agrees with the definition formula you configure and the assessment charge with the charge formula you configure, that the currency is written as a three-letter code, that no assessment period repeats, and that no unreplaced placeholder survives in the remark column. Every check that cannot run is reported in `skipped` with its reason.
+
+## What it answers
+
+| You ask | What it answers |
+|---|---|
+| The register never says which station or which market it covers, and one forecast figure reads `--`. | `FP-001` requires the subject and the market to be identified, and `FP-002` requires the forecast figure to parse as a number; a `--` is reported. `FP-001` checks that the two are filled in, not that the station name is the right one, and `FP-002` does not decide whether the forecast was accurate. |
+| The accuracy I store differs from my own market's definition formula, and the charge differs from base times unit rate. | `FP-003` compares the stored figure with the definition formula configured in the rule pack — the shipped expression is one common convention and an example, not your market's rule, so replace `expression` or disable the rule — with a 1.5-point tolerance. `FP-004` compares the charge with `考核基数 × 考核单价` at a 0.01 tolerance; the base is entered by you. Neither decides whether the assessment method applies or whether a charge should be levied. |
+| The currency column is blank on some rows and says `元` on others. | `FP-005` requires a three-letter uppercase code such as CNY or USD, so a blank and a `元` are both reported; the rule's limit is that it judges the format only and does not decide which code your institution should use for the renminbi. It also does not decide whether the currency chosen is the right one. |
+| The same assessment period appears on more than one row. | `FP-006` reports a period that repeats, because a duplicate makes the charge accumulate twice and leaves it unclear whether the period was registered twice or assessed twice; the comparison ignores whitespace. One period assessed by time block and band legitimately produces several rows — distinguish those in the remark column or by a different period identifier, or disable the rule. It does not decide which row is the duplicate. |
+| The remark column still holds `【】`, `XXX` or `TBD`. | `FP-007` reports the row when the remark column contains one of the placeholders configured in the rule pack, because a register copied from a template invites the reader to assume the assessment was actually carried out. The terms list is yours to adjust, and the rule does not decide whether the remark text is true. |
+| A whole column is missing from my material — does the rule quietly pass? | No. The column-level rules (`FP-002`, `FP-005`, `FP-006`, `FP-007`) report themselves under `skipped` with the reason that the material carries no such column, and the report distinguishes that from a rule that ran and found no differing row. A check that never ran is never presented as a pass. |
+
+## Standards it follows
+
+| Document | Number | Cited by rules |
+|---|---|---|
+| 电力市场考核办法与并网调度协议（无国家标准） | 无统一标准（本条依据为台账可追溯性） | FP-001 |
+| 电力市场考核办法与并网调度协议（无国家标准） | 无统一标准（本条依据为算术可行性） | FP-002 |
+| 电力市场考核办法与并网调度协议（无国家标准） | 无统一标准（本条依据为本机构配置的准确率定义式） | FP-003 |
+| 电力市场考核办法与并网调度协议（无国家标准） | 无统一标准（本条依据为本机构配置的考核算式） | FP-004 |
+| 《表示货币的代码》 | GB/T 12406—2022（表示货币的代码；2022-12-30 发布并实施；全部代替 GB/T 12406—2008（该版名称为「表示货币和资金的代码」）——注意旧版名称含"资金"；修改采用 ISO 4217:2015，非等同采用；条号本次未取得） | FP-005 |
+| 电力市场考核办法与并网调度协议（无国家标准） | 无统一标准（本条依据为台账唯一性） | FP-006 |
+| 电力市场考核办法与并网调度协议（无国家标准） | 无统一标准（本条依据为台账真实性） | FP-007 |
 
 **Boundary:** this plugin checks a **预测准确率考核台账** for arithmetic — that the period and subject are
 identified, that forecast and actual figures parse, that the accuracy figure matches the definition formula

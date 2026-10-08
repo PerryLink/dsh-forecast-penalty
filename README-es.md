@@ -1,4 +1,29 @@
-# dsh-forecast-penalty
+# dsh-forecast-penalty — Registro de evaluación de la precisión de la predicción y verificación aritmética del cargo de evaluación
+
+`dsh-forecast-penalty` lee un registro de evaluación de la precisión de la predicción —la cabecera más una fila por periodo de evaluación— y comprueba la completitud y la aritmética de ese mismo registro: que el periodo, el sujeto evaluado y el tipo de mercado estén identificados, que las cifras de predicción, valor real y precisión se puedan analizar como números, que la precisión registrada concuerde con la fórmula de definición que usted configure y el cargo de evaluación con la fórmula de cálculo que usted configure, que la moneda figure como código de tres letras, que no se repita ningún periodo y que no quede ningún marcador de plantilla en la columna de observaciones. Toda comprobación que no pueda ejecutarse se informa en `skipped` con su motivo.
+
+## Qué responde
+
+| Usted pregunta | Qué responde |
+|---|---|
+| El registro no dice qué central ni qué mercado cubre, y una fila trae `--` como valor de predicción. | `FP-001` exige que el sujeto evaluado y el tipo de mercado estén identificados, y `FP-002` que el valor de predicción se pueda analizar como número, de modo que un `--` se informa. `FP-001` comprueba que ambos estén rellenados, no que el nombre de la central sea el correcto, y `FP-002` no decide si la predicción fue acertada. |
+| La precisión que registro no coincide con la fórmula de definición de mi mercado, y el cargo tampoco con base por tarifa unitaria. | `FP-003` compara la cifra registrada con la fórmula de definición configurada en el paquete de reglas —la expresión de fábrica es una convención común y un ejemplo, no la regla de su mercado: sustituya `expression` o desactive la regla— con una tolerancia de 1,5 puntos. `FP-004` compara el cargo con `考核基数 × 考核单价` con una tolerancia de 0,01; la base la introduce usted. Ninguna de las dos decide si el método de evaluación es aplicable ni si el cargo debe cobrarse. |
+| La columna de moneda está vacía en unas filas y en otras pone `元`. | `FP-005` exige un código de tres letras mayúsculas como CNY o USD, así que tanto la celda vacía como el `元` se informan; el límite de la regla es que juzga solo el formato y no decide qué código debe usar su institución para el renminbi. Tampoco decide si la moneda elegida es la correcta. |
+| El mismo periodo de evaluación aparece en más de una fila. | `FP-006` informa de un periodo repetido, porque el duplicado hace que el cargo se acumule dos veces y deja sin saber si el periodo se registró dos veces o se evaluó dos veces; la comparación ignora los espacios. Un mismo periodo evaluado por franjas horarias y bloques produce legítimamente varias filas: distíngalas en la columna de observaciones o con otro identificador de periodo, o desactive la regla. No decide cuál de las filas es la duplicada. |
+| La columna de observaciones todavía contiene `【】`, `XXX` o `TBD`. | `FP-007` informa de la fila cuando la columna de observaciones contiene uno de los marcadores configurados en el paquete de reglas, porque un registro copiado de una plantilla invita a suponer que la evaluación se realizó de verdad. La lista `terms` es suya para ajustarla, y la regla no decide si el texto de la observación es cierto. |
+| Falta una columna entera en mi material, ¿la regla pasa en silencio? | No. Las reglas por columna (`FP-002`, `FP-005`, `FP-006`, `FP-007`) se informan a sí mismas en `skipped` con el motivo de que el material no trae esa columna, y el informe distingue ese caso del de una regla que sí se ejecutó y no halló ninguna fila con diferencias. Una comprobación que nunca se ejecutó no se presenta como superada. |
+
+## Normas que sigue
+
+| Documento | Número | Reglas que lo citan |
+|---|---|---|
+| 电力市场考核办法与并网调度协议（无国家标准） | 无统一标准（本条依据为台账可追溯性） | FP-001 |
+| 电力市场考核办法与并网调度协议（无国家标准） | 无统一标准（本条依据为算术可行性） | FP-002 |
+| 电力市场考核办法与并网调度协议（无国家标准） | 无统一标准（本条依据为本机构配置的准确率定义式） | FP-003 |
+| 电力市场考核办法与并网调度协议（无国家标准） | 无统一标准（本条依据为本机构配置的考核算式） | FP-004 |
+| 《表示货币的代码》 | GB/T 12406—2022（表示货币的代码；2022-12-30 发布并实施；全部代替 GB/T 12406—2008（该版名称为「表示货币和资金的代码」）——注意旧版名称含"资金"；修改采用 ISO 4217:2015，非等同采用；条号本次未取得） | FP-005 |
+| 电力市场考核办法与并网调度协议（无国家标准） | 无统一标准（本条依据为台账唯一性） | FP-006 |
+| 电力市场考核办法与并网调度协议（无国家标准） | 无统一标准（本条依据为台账真实性） | FP-007 |
 
 **Boundary:** this plugin checks a **预测准确率考核台账** for arithmetic — that the period and subject are
 identified, that forecast and actual figures parse, that the accuracy figure matches the definition formula
