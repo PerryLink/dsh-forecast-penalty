@@ -1,6 +1,6 @@
 {
   "name": "dsh-forecast-penalty",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "预测准确率考核核对（按准确率、门槛与考核单价核对考核费用的算术自洽，仅提示差异，不作出定性结论）",
   "type": "module",
   "main": "lib/index.mjs",
