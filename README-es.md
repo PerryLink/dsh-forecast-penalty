@@ -1,6 +1,14 @@
 # dsh-forecast-penalty — Registro de evaluación de la precisión de la predicción y verificación aritmética del cargo de evaluación
 
+[![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
+
 `dsh-forecast-penalty` lee un registro de evaluación de la precisión de la predicción —la cabecera más una fila por periodo de evaluación— y comprueba la completitud y la aritmética de ese mismo registro: que el periodo, el sujeto evaluado y el tipo de mercado estén identificados, que las cifras de predicción, valor real y precisión se puedan analizar como números, que la precisión registrada concuerde con la fórmula de definición que usted configure y el cargo de evaluación con la fórmula de cálculo que usted configure, que la moneda figure como código de tres letras, que no se repita ningún periodo y que no quede ningún marcador de plantilla en la columna de observaciones. Toda comprobación que no pueda ejecutarse se informa en `skipped` con su motivo.
+
+## Cómo se ve la salida
+
+![Terminal demo of dsh-forecast-penalty: real output over its FP-002 fixture](https://raw.githubusercontent.com/PerryLink/dsh-forecast-penalty/main/docs/assets/dsh-forecast-penalty-demo.png)
+
+Salida real de este plugin sobre su propio fixture de prueba `FP-002` — no es un montaje. El paquete de reglas no inventa citas, así que cada hallazgo nombra la cláusula aplicada y advierte que su texto no se obtuvo.
 
 ## Qué responde
 

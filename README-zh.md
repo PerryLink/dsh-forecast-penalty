@@ -1,6 +1,14 @@
 # dsh-forecast-penalty — 预测准确率考核台账与考核费用算术核对
 
+[![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
+
 `dsh-forecast-penalty` 读取一份预测准确率考核台账——表头加每个考核期一行——核对这份台账自身的齐备与算术：考核期、考核对象与市场类型是否写明，预测值、实际值与准确率是否可解析为数值，台账所填准确率是否与贵机构配置的定义式相符、考核费用是否与配置的算式相符，币制是否写成三位字母代码，考核期是否重复，备注栏是否残留未替换的占位符。凡是无法执行的检查，都会在 `skipped` 中逐条说明原因。
+
+## 实际输出长什么样
+
+![Terminal demo of dsh-forecast-penalty: real output over its FP-002 fixture](https://raw.githubusercontent.com/PerryLink/dsh-forecast-penalty/main/docs/assets/dsh-forecast-penalty-demo.png)
+
+本插件对自己 `FP-002` 测试夹具的**真实输出**，不是示意图。规则库不伪造引文，因此每条发现都会同时写明所引条款，以及该条款原文本次未取得。
 
 ## 它回答什么问题
 
