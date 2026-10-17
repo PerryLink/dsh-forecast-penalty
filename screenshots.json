@@ -1,0 +1,14 @@
+[
+  {
+    "path": "docs/assets/dsh-forecast-penalty-hero.png",
+    "kind": "hero",
+    "alt": "dsh-forecast-penalty terminal output",
+    "caption": "Real dsh-forecast-penalty checker output; 31 tests passed."
+  },
+  {
+    "path": "docs/assets/dsh-forecast-penalty-demo.gif",
+    "kind": "demo",
+    "alt": "Animated dsh-forecast-penalty terminal session",
+    "caption": "The same run, assembled line by line."
+  }
+]
