@@ -4,6 +4,13 @@
 
 `dsh-forecast-penalty` lee un registro de evaluación de la precisión de la predicción —la cabecera más una fila por periodo de evaluación— y comprueba la completitud y la aritmética de ese mismo registro: que el periodo, el sujeto evaluado y el tipo de mercado estén identificados, que las cifras de predicción, valor real y precisión se puedan analizar como números, que la precisión registrada concuerde con la fórmula de definición que usted configure y el cargo de evaluación con la fórmula de cálculo que usted configure, que la moneda figure como código de tres letras, que no se repita ningún periodo y que no quede ningún marcador de plantilla en la columna de observaciones. Toda comprobación que no pueda ejecutarse se informa en `skipped` con su motivo.
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-forecast-penalty
+dsh --profile <name> --dump-config | grep 'dsh-forecast-penalty'
+```
+
 ## Cómo se ve la salida
 
 ![Terminal demo of dsh-forecast-penalty: real output over its FP-002 fixture](https://raw.githubusercontent.com/PerryLink/dsh-forecast-penalty/main/docs/assets/dsh-forecast-penalty-hero.png)
@@ -75,13 +82,6 @@ exemption cases and the dispute procedure.**
 ## What it does
 
 La tabla de reglas, los campos y el comportamiento detallado están en [README.md](README.md#what-it-does) (versión principal en inglés). El plugin sólo enumera divergencias literales frente a las cláusulas citadas e indica en `skipped` cada comprobación que no pudo ejecutarse.
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-forecast-penalty
-dsh --profile <name> --dump-config | grep 'dsh-forecast-penalty'
-```
 
 ## Configuration
 

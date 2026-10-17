@@ -4,6 +4,13 @@
 
 `dsh-forecast-penalty` reads one forecast-accuracy assessment register — the subject header plus one row per assessment period — and verifies that register's own completeness and arithmetic: that the period, the subject and the market are identified, that the forecast, actual and accuracy figures parse as numbers, that the stored accuracy agrees with the definition formula you configure and the assessment charge with the charge formula you configure, that the currency is written as a three-letter code, that no assessment period repeats, and that no unreplaced placeholder survives in the remark column. Every check that cannot run is reported in `skipped` with its reason.
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-forecast-penalty
+dsh --profile <name> --dump-config | grep 'dsh-forecast-penalty'
+```
+
 ## What it looks like
 
 ![Terminal demo of dsh-forecast-penalty: real output over its FP-002 fixture](https://raw.githubusercontent.com/PerryLink/dsh-forecast-penalty/main/docs/assets/dsh-forecast-penalty-hero.png)
@@ -86,13 +93,6 @@ period — applies a versioned rule pack, and returns a report.
 | `FP-005` | the currency is a three-letter code | warn | GB/T 12406 |
 | `FP-006` | assessment periods are unique | warn | register uniqueness |
 | `FP-007` | the remark column holds no unreplaced placeholder | warn | register integrity |
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-forecast-penalty
-dsh --profile <name> --dump-config | grep 'dsh-forecast-penalty'
-```
 
 ## Configuration
 

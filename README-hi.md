@@ -4,6 +4,13 @@
 
 `dsh-forecast-penalty` एक पूर्वानुमान-सटीकता मूल्यांकन रजिस्टर पढ़ता है — हेडर और प्रत्येक मूल्यांकन अवधि की एक पंक्ति — और उसी रजिस्टर की पूर्णता तथा अंकगणित की जाँच करता है: क्या अवधि, मूल्यांकन का विषय और बाज़ार-प्रकार दर्ज हैं, क्या पूर्वानुमान, वास्तविक और सटीकता के अंक संख्याओं के रूप में पढ़े जा सकते हैं, क्या दर्ज सटीकता आपके द्वारा कॉन्फ़िगर किए गए परिभाषा-सूत्र से और मूल्यांकन शुल्क आपके द्वारा कॉन्फ़िगर किए गए गणना-सूत्र से मेल खाता है, क्या मुद्रा तीन अक्षरों के कोड के रूप में लिखी है, क्या कोई मूल्यांकन अवधि दोहराई नहीं गई है, और क्या टिप्पणी-कॉलम में कोई अपूरित प्लेसहोल्डर शेष नहीं है। जो जाँच चल नहीं सकती, वह `skipped` में अपना कारण बताती है।
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-forecast-penalty
+dsh --profile <name> --dump-config | grep 'dsh-forecast-penalty'
+```
+
 ## आउटपुट कैसा दिखता है
 
 ![Terminal demo of dsh-forecast-penalty: real output over its FP-002 fixture](https://raw.githubusercontent.com/PerryLink/dsh-forecast-penalty/main/docs/assets/dsh-forecast-penalty-hero.png)
@@ -75,13 +82,6 @@ exemption cases and the dispute procedure.**
 ## What it does
 
 नियम-सूची, फ़ील्ड और विस्तृत व्यवहार [README.md](README.md#what-it-does) (अंग्रेज़ी मुख्य संस्करण) में हैं। यह प्लगइन केवल उद्धृत धाराओं के सामने शाब्दिक अंतर सूचीबद्ध करता है और हर न चल पाई जाँच को `skipped` में बताता है।
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-forecast-penalty
-dsh --profile <name> --dump-config | grep 'dsh-forecast-penalty'
-```
 
 ## Configuration
 
