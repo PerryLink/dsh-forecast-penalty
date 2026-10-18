@@ -1,5 +1,7 @@
 # dsh-forecast-penalty — 预测准确率考核台账与考核费用算术核对
 
+[English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
+
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
 
 `dsh-forecast-penalty` 读取一份预测准确率考核台账——表头加每个考核期一行——核对这份台账自身的齐备与算术：考核期、考核对象与市场类型是否写明，预测值、实际值与准确率是否可解析为数值，台账所填准确率是否与贵机构配置的定义式相符、考核费用是否与配置的算式相符，币制是否写成三位字母代码，考核期是否重复，备注栏是否残留未替换的占位符。凡是无法执行的检查，都会在 `skipped` 中逐条说明原因。
