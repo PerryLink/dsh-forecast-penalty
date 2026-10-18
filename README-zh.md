@@ -46,26 +46,16 @@ dsh --profile <name> --dump-config | grep 'dsh-forecast-penalty'
 
 **边界（中文译文，以英文原文为准）：** 本插件核对一份 **预测准确率考核台账** 的算术——是否写明考核期与考核对象，预测值与实际值是否可解析为数值，准确率数值是否与你配置的定义公式相符，考核费用是否与你配置的考核费用公式相符，币制是否符合其形式，考核期是否不重复，以及是否残留占位符。它**不**判定是否应当收取考核费用、准确率是否合格，也不判定是否适用豁免或申诉。**这些取决于市场规则、豁免情形与争议处理程序。**
 
-> ### ⚠️ This is a market rule, not a national standard — and the pack says so
+> ### ⚠️ 这是市场规则，不是国家标准——规则库也这样写明（以英文原文为准）
 >
-> The accuracy definition, the exemption threshold, the unit rate and the settlement basis are set by **each
-> power market's assessment rules and the grid-connection dispatch agreement**. Provinces differ sharply (some
-> use `1 − deviation`, some use root-mean-square error, some assess by time block and band), and **no unified
-> national standard exists**. So this pack does not fabricate a standard number: every rule's `excerpt` states
-> plainly that its basis is arithmetic self-consistency or a locally configured convention and that **no
-> citable clause exists**.
+> 准确率定义、豁免门槛、考核单价与结算依据，均由**各电力市场的考核规则与并网调度协议**设定。各省差异很大（有的用 `1 − deviation`，有的用均方根误差，有的分时段、分档考核），且**不存在统一的国家标准**。因此本规则库不编造一个标准数字：每条规则的 `excerpt` 都直说其依据是算术自洽或本地配置的约定，并说明**不存在可供引用的条款**。
 >
-> **Two formulas ship as examples, and both are marked as such:**
+> **有两个公式作为示例出厂，且两者都如此标明：**
 >
-> - `FP-003` **accuracy** defaults to `预测值 ÷ 实际值 × 100` with a 1.5-point tolerance. That is **one common
->   convention, not any market's rule**. Before use, replace `expression` with the formula from your market's
->   rules — or disable the rule. The note spells this out.
-> - `FP-004` **charge** checks `考核费用 = 考核基数 × 考核单价`. The base is **entered by you** after working
->   it out under your market's rules, because the threshold, the bands and the volume basis are the market's
->   business and this plugin will not derive them. No unit rate is built in anywhere.
+> - `FP-003` **准确率**默认采用 `预测值 ÷ 实际值 × 100`，容差为 1.5 个百分点。那只是**一种常见约定，不是任何市场的规则**。使用前，请把 `expression` 替换为你所在市场规则中的公式——或停用该规则。其说明明确写出了这一点。
+> - `FP-004` **考核费用**规则核对 `考核费用 = 考核基数 × 考核单价`。考核基数**由你填写**，其数值需按你所在市场的规则算好，因为门槛、档位与电量依据属于市场规则的范围，本插件不会代为推导。任何地方都没有内置考核单价。
 >
-> A consequence worth knowing: the accuracy rule ships at `info` severity precisely because its formula is a
-> deployment choice rather than a verified requirement.
+> 有一个值得知道的后果：准确率规则之所以以 `info` 严重级别出厂，正是因为它的公式属于部署选择，而不是经过核实的要求。
 
 ## Compatibility
 
