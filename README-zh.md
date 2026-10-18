@@ -44,12 +44,7 @@ dsh --profile <name> --dump-config | grep 'dsh-forecast-penalty'
 | 电力市场考核办法与并网调度协议（无国家标准） | 无统一标准（本条依据为台账唯一性） | FP-006 |
 | 电力市场考核办法与并网调度协议（无国家标准） | 无统一标准（本条依据为台账真实性） | FP-007 |
 
-**Boundary:** this plugin checks a **预测准确率考核台账** for arithmetic — that the period and subject are
-identified, that forecast and actual figures parse, that the accuracy figure matches the definition formula
-you configure, that the assessment charge matches your charge formula, that the currency follows its format,
-that periods do not repeat, and that no placeholder survives. It does **not** decide whether a charge should be
-levied, whether accuracy passes, or whether a waiver or appeal applies. **Those depend on the market rules, the
-exemption cases and the dispute procedure.**
+**边界（中文译文，以英文原文为准）：** 本插件核对一份 **预测准确率考核台账** 的算术——是否写明考核期与考核对象，预测值与实际值是否可解析为数值，准确率数值是否与你配置的定义公式相符，考核费用是否与你配置的考核费用公式相符，币制是否符合其形式，考核期是否不重复，以及是否残留占位符。它**不**判定是否应当收取考核费用、准确率是否合格，也不判定是否适用豁免或申诉。**这些取决于市场规则、豁免情形与争议处理程序。**
 
 > ### ⚠️ This is a market rule, not a national standard — and the pack says so
 >
