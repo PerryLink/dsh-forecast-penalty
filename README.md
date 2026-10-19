@@ -3,6 +3,7 @@
 [English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
 
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
+[![dshfind](https://dshfind.com/api/badge/PerryLink/dsh-forecast-penalty?metric=downloads)](https://dshfind.com/en/plugins/PerryLink/dsh-forecast-penalty?ref=badge)
 
 `dsh-forecast-penalty` reads one forecast-accuracy assessment register — the subject header plus one row per assessment period — and verifies that register's own completeness and arithmetic: that the period, the subject and the market are identified, that the forecast, actual and accuracy figures parse as numbers, that the stored accuracy agrees with the definition formula you configure and the assessment charge with the charge formula you configure, that the currency is written as a three-letter code, that no assessment period repeats, and that no unreplaced placeholder survives in the remark column. Every check that cannot run is reported in `skipped` with its reason.
 

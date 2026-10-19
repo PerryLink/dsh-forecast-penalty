@@ -3,6 +3,7 @@
 [English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
 
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
+[![dshfind](https://dshfind.com/api/badge/PerryLink/dsh-forecast-penalty?metric=downloads)](https://dshfind.com/en/plugins/PerryLink/dsh-forecast-penalty?ref=badge)
 
 `dsh-forecast-penalty` एक पूर्वानुमान-सटीकता मूल्यांकन रजिस्टर पढ़ता है — हेडर और प्रत्येक मूल्यांकन अवधि की एक पंक्ति — और उसी रजिस्टर की पूर्णता तथा अंकगणित की जाँच करता है: क्या अवधि, मूल्यांकन का विषय और बाज़ार-प्रकार दर्ज हैं, क्या पूर्वानुमान, वास्तविक और सटीकता के अंक संख्याओं के रूप में पढ़े जा सकते हैं, क्या दर्ज सटीकता आपके द्वारा कॉन्फ़िगर किए गए परिभाषा-सूत्र से और मूल्यांकन शुल्क आपके द्वारा कॉन्फ़िगर किए गए गणना-सूत्र से मेल खाता है, क्या मुद्रा तीन अक्षरों के कोड के रूप में लिखी है, क्या कोई मूल्यांकन अवधि दोहराई नहीं गई है, और क्या टिप्पणी-कॉलम में कोई अपूरित प्लेसहोल्डर शेष नहीं है। जो जाँच चल नहीं सकती, वह `skipped` में अपना कारण बताती है।
 
