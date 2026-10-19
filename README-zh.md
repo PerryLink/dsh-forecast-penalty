@@ -29,6 +29,35 @@ dsh --profile <name> --dump-config | grep 'dsh-forecast-penalty'
 
 下表是示例集：第一行是详细走查，其余行是简短案例。
 
+#### 详细输出
+
+**工具** `forecast_penalty`
+
+**输入**
+
+~~~json
+{"rows":[{"考核期":"2026-03","预测值":"待补","实际值":"1000"}]}
+~~~
+ 
+**输出**
+
+~~~json
+{
+  "id": "dsh-forecast-penalty.FP-002.de09b5a6",
+  "ruleId": "FP-002",
+  "severity": "warn",
+  "locator": {
+    "field": "forecastValue",
+    "row": 1
+  },
+  "found": "第 1 行「forecastValue」的值「待补」无法解析为数字",
+  "expected": "「forecastValue」应填写数字",
+  "fix": "预测值应填写数字；本条只核对可解析性，不判断预测是否准确"
+}
+~~~
+
+*来源 `tests/fixtures/FP-002/FP-002-unsafe.json (cases.json expects FP-002 count 1); run via lib/index.mjs rules/forecast-penalty.yaml`*
+
 | 你会问 | 它怎么答 |
 |---|---|
 | 台账没有写考核对象是哪个场站、属于哪个市场，其中一行预测值写的是 `--`。 | `FP-001` 要求写明考核对象与市场类型，`FP-002` 要求预测值能解析为数值，`--` 会被报出。`FP-001` 只核对这两项是否填写，不判断场站名称是否正确；`FP-002` 不判断预测是否准确。 |

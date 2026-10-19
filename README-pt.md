@@ -29,6 +29,35 @@ Saída real deste plugin sobre o seu próprio fixture de teste `FP-002` — não
 
 A tabela abaixo é o conjunto de exemplos: a primeira linha é o caso detalhado e as demais são casos curtos.
 
+#### Saída detalhada
+
+**Ferramenta** `forecast_penalty`
+
+**Entrada**
+
+~~~json
+{"rows":[{"考核期":"2026-03","预测值":"待补","实际值":"1000"}]}
+~~~
+ 
+**Saída**
+
+~~~json
+{
+  "id": "dsh-forecast-penalty.FP-002.de09b5a6",
+  "ruleId": "FP-002",
+  "severity": "warn",
+  "locator": {
+    "field": "forecastValue",
+    "row": 1
+  },
+  "found": "第 1 行「forecastValue」的值「待补」无法解析为数字",
+  "expected": "「forecastValue」应填写数字",
+  "fix": "预测值应填写数字；本条只核对可解析性，不判断预测是否准确"
+}
+~~~
+
+*Observado em `tests/fixtures/FP-002/FP-002-unsafe.json (cases.json expects FP-002 count 1); run via lib/index.mjs rules/forecast-penalty.yaml`*
+
 | Você pergunta | O que ele responde |
 |---|---|
 | O registo não diz que central nem que mercado abrange, e uma linha traz `--` como valor de previsão. | `FP-001` exige que o sujeito avaliado e o tipo de mercado estejam identificados, e `FP-002` que o valor de previsão seja analisável como número, pelo que um `--` é reportado. `FP-001` verifica que ambos estão preenchidos, não que o nome da central seja o correto, e `FP-002` não decide se a previsão foi acertada. |
