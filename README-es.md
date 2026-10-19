@@ -20,13 +20,18 @@ dsh --profile <name> --dump-config | grep 'dsh-forecast-penalty'
 
 ## Cómo se ve la salida
 
-![Terminal demo of dsh-forecast-penalty: real output over its FP-002 fixture](https://raw.githubusercontent.com/PerryLink/dsh-forecast-penalty/main/docs/assets/dsh-forecast-penalty-hero.png)
+![Diagrama de flujo de dsh-forecast-penalty: llamada → plugin → resultado.](docs/assets/dsh-forecast-penalty-flow.svg)
 
-![Animated terminal demo of dsh-forecast-penalty](https://raw.githubusercontent.com/PerryLink/dsh-forecast-penalty/main/docs/assets/dsh-forecast-penalty-demo.gif)
+*Resumen del flujo: llamada → plugin → resultado. Los ejemplos siguientes usan la superficie de comandos real.*
+
 
 Salida real de este plugin sobre su propio fixture de prueba `FP-002` — no es un montaje. El paquete de reglas no inventa citas, así que cada hallazgo nombra la cláusula aplicada y advierte que su texto no se obtuvo.
 
 ## Qué responde
+
+### Ejemplos
+
+La tabla siguiente es el conjunto de ejemplos: la primera fila es el caso detallado y las demás son casos breves.
 
 | Usted pregunta | Qué responde |
 |---|---|
