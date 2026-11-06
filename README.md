@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-forecast-penalty-flow-dark.svg">
-  <img src="docs/assets/dsh-forecast-penalty-flow-light.svg" width="100%" alt="dsh-forecast-penalty 数据流：rows[] 考核台账 → forecast_penalty 工具 → rules/*.yaml 规则包（FP-001..FP-007）→ issues[] + skipped[] 报告 → 审核人裁决；配置经 rulesFile / disabledRules / onlyRules / timeoutMs 注入">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-forecast-penalty-hero-zh-dark.webp">
+  <img src="docs/assets/dsh-forecast-penalty-hero-zh-light.webp" width="100%" alt="dsh-forecast-penalty 横幅：左侧是插件名与两行价值说明；右侧上方是一行真实的考核台账（考核期 2026-03、预测值 966、实际值 1000、准确率 88.00、考核费用 4000、币制 CNY），每栏下方挂载核对它的规则（FP-002、FP-003、FP-004、FP-005、FP-006、FP-007），表头的考核对象与市场类型由 FP-001 核对；下方是 FP-003 判定卡：填报 88.00，按定义式算出的 96.6 相差 8.6 个百分点、超出容差 1.5，右侧容差刻度尺把两者画在同一根轴上；报告为 issues[] 1 · skipped[] 0，结论留给审核人">
 </picture>
 
 # dsh-forecast-penalty
@@ -43,6 +43,11 @@ dsh plugin --profile <name> add dsh-forecast-penalty
 - **给谁用**：合同管理、考核结算岗；不用懂命令行，在对话里把材料交给它即可。
 - **你交什么**：这项核对用到的原始材料（表格、清单或文书）；不改原件。Excel 可先转成 JSON/YAML，对话里也能代转。
 - **它交什么**：一份「哪一行、哪一栏、差什么、怎么补」的清单；没能执行的检查逐条列入 `skipped` 并写明原因。
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-forecast-penalty-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-forecast-penalty-flow-v5-light.svg" width="100%" alt="dsh-forecast-penalty 结构图（记分台式规则盘点）：上方两条输入——材料 file/material 经 parseMaterial 归一为 1 行 · 12 个规范栏，规则包 rules/forecast-penalty.yaml（v2026.1）共 7 条并先按 only/disabled 过滤；中部记分台逐行给出规则、核对字段、检查种类、依据类别→严重级上限与本次处置：FP-003 用容差刻度尺把填报 88.00 与应为 96.6（容差 ±1.5 个百分点）画在同一根轴上，FP-004 用算式 80 × 50 = 4000 核对填报 4000（容差 0.01），其余五条执行且 0 差异；底部两个出口：issues[] 1 条（FP-003，第 1 行 accuracy，info），skipped[] 本次为 0，缺列、停用或 only 未选中的规则会逐条写明原因；结论留给审核人">
+</picture>
 
 ## 三步上手
 

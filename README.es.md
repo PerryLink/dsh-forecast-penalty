@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-forecast-penalty-flow-dark.svg">
-  <img src="docs/assets/dsh-forecast-penalty-flow-light.svg" width="100%" alt="Flujo de datos de dsh-forecast-penalty: rows[] registro de evaluación → herramienta forecast_penalty → paquete de reglas rules/*.yaml (FP-001..FP-007) → informe issues[] + skipped[] → dictamen del revisor; la configuración entra por rulesFile / disabledRules / onlyRules / timeoutMs">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-forecast-penalty-hero-en-dark.webp">
+  <img src="docs/assets/dsh-forecast-penalty-hero-en-light.webp" width="100%" alt="Banner de dsh-forecast-penalty: a la izquierda, el nombre y dos líneas de valor; a la derecha, arriba, una fila real del registro de evaluación (periodo 2026-03, predicción 966, real 1000, precisión 88.00, cargo 4000, moneda CNY) con la regla que se monta en cada columna (FP-002, FP-003, FP-004, FP-005, FP-006, FP-007) y FP-001 en la cabecera de sujeto y mercado; abajo, la tarjeta de hallazgo FP-003 —88.00 declarado frente a 96.6 según la fórmula configurada, 8,6 puntos porcentuales de diferencia, por encima de la tolerancia de 1,5— con una regla de tolerancia que dibuja ambos en un mismo eje; el informe es issues[] 1 · skipped[] 0 y el dictamen queda en manos humanas">
 </picture>
 
 # dsh-forecast-penalty
@@ -43,6 +43,11 @@ No decide si el método de evaluación es aplicable, si la precisión alcanza el
 - **Para quién es**: personal de contratación y de liquidación de evaluaciones; no hace falta saber usar la línea de comandos: entregue el material en el chat.
 - **Qué le entrega**: el material de origen sobre el que trabaja la comprobación (una tabla, un registro o un documento); el original nunca se modifica. Excel puede convertirse antes a JSON/YAML, en el chat si la plataforma lo admite.
 - **Qué recibe**: una lista de «qué fila, qué columna, qué falta y cómo corregirlo»; toda comprobación que no pudo ejecutarse se enumera en `skipped` con su motivo.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-forecast-penalty-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-forecast-penalty-flow-v5-light.svg" width="100%" alt="Estructura de dsh-forecast-penalty (marcador de reglas): dos entradas arriba —el material mediante parseMaterial, una fila y 12 columnas canónicas, y el paquete de siete reglas rules/forecast-penalty.yaml v2026.1 filtrado primero por only/disabled—; el panel de puntuación da por regla el campo, el tipo de comprobación, el tipo de fundamento hasta el límite de gravedad y la disposición de esta ejecución: FP-003 dibuja el 88.00 declarado frente al 96.6 esperado (±1,5 pp) en una regla de tolerancia, FP-004 cuadra 80 × 50 = 4000 con el 4000 declarado (tolerancia 0,01) y las otras cinco se ejecutan sin diferencias; abajo, dos salidas: issues[] con un hallazgo localizado (FP-003, fila 1, accuracy, info) y skipped[] vacío en esta ejecución, con los motivos por los que una regla puede acabar ahí; el dictamen queda en manos de la persona revisora">
+</picture>
 
 ## Instalación en tres pasos
 

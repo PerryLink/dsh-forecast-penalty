@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-forecast-penalty-flow-dark.svg">
-  <img src="docs/assets/dsh-forecast-penalty-flow-light.svg" width="100%" alt="dsh-forecast-penalty data flow: rows[] assessment register → forecast_penalty tool → rules/*.yaml rule pack (FP-001..FP-007) → issues[] + skipped[] report → reviewer verdict; config flows in via rulesFile / disabledRules / onlyRules / timeoutMs">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-forecast-penalty-hero-en-dark.webp">
+  <img src="docs/assets/dsh-forecast-penalty-hero-en-light.webp" width="100%" alt="dsh-forecast-penalty banner: left, the plugin name and two value lines; right, above, one real assessment-ledger row (period 2026-03, forecast 966, actual 1000, accuracy 88.00, charge 4000, currency CNY) with the rule that mounts on each column (FP-002, FP-003, FP-004, FP-005, FP-006, FP-007) and FP-001 on the subject and market header; below, the FP-003 finding card — declared 88.00 against the 96.6 the configured formula yields, a gap of 8.6 percentage points beyond the 1.5 tolerance — with a tolerance ruler drawing both on one axis; the report is issues[] 1 · skipped[] 0 and the verdict stays human">
 </picture>
 
 # dsh-forecast-penalty
@@ -43,6 +43,11 @@ It does not decide whether the assessment method applies, whether accuracy passe
 - **Who it is for**: contract and settlement staff; no command line required — hand the material over in chat.
 - **What you give it**: the source material the check works on (a table, register or document); the original is never modified. Excel can be converted to JSON/YAML first, in chat if the platform supports it.
 - **What you get back**: a list of "which row, which column, what is missing, how to fix it"; every check that could not run is listed in `skipped` with its reason.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-forecast-penalty-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-forecast-penalty-flow-v5-light.svg" width="100%" alt="dsh-forecast-penalty structure (rule scoreboard): two inputs at the top — the material via parseMaterial, 1 row and 12 canonical columns, and the seven-rule pack rules/forecast-penalty.yaml v2026.1 filtered by only/disabled first; the scoring panel below gives, per rule, the field, the check kind, the basis kind to severity cap and this run's disposition: FP-003 draws the declared 88.00 against the expected 96.6 (±1.5 pp) on one tolerance ruler, FP-004 reconciles 80 × 50 = 4000 with the declared 4000 (tolerance 0.01), and the other five execute with 0 differences; two exits at the bottom: issues[] with one located finding (FP-003, row 1, accuracy, info) and skipped[] empty for this run, naming the reasons a rule can land there; the verdict stays with the reviewer">
+</picture>
 
 ## Three-step setup
 

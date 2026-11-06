@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-forecast-penalty-flow-dark.svg">
-  <img src="docs/assets/dsh-forecast-penalty-flow-light.svg" width="100%" alt="dsh-forecast-penalty डेटा-प्रवाह: rows[] मूल्यांकन रजिस्टर → forecast_penalty उपकरण → rules/*.yaml नियम-पैक (FP-001..FP-007) → issues[] + skipped[] रिपोर्ट → समीक्षक का निर्णय; कॉन्फ़िगरेशन rulesFile / disabledRules / onlyRules / timeoutMs से आता है">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-forecast-penalty-hero-en-dark.webp">
+  <img src="docs/assets/dsh-forecast-penalty-hero-en-light.webp" width="100%" alt="dsh-forecast-penalty बैनर: बाईं ओर प्लगइन का नाम और मूल्य की दो पंक्तियाँ; दाईं ओर ऊपर मूल्यांकन रजिस्टर की एक वास्तविक पंक्ति (अवधि 2026-03, पूर्वानुमान 966, वास्तविक 1000, सटीकता 88.00, शुल्क 4000, मुद्रा CNY) और हर स्तंभ पर लगा नियम (FP-002, FP-003, FP-004, FP-005, FP-006, FP-007), विषय व बाज़ार हेडर पर FP-001; नीचे FP-003 निष्कर्ष कार्ड — घोषित 88.00 बनाम कॉन्फ़िगर किए गए सूत्र से 96.6, 8.6 प्रतिशत-बिंदु का अंतर, सहनशीलता 1.5 से अधिक — और एक सहनशीलता पैमाना जो दोनों को एक ही अक्ष पर दिखाता है; रिपोर्ट issues[] 1 · skipped[] 0 है और अंतिम निर्णय मनुष्य का">
 </picture>
 
 # dsh-forecast-penalty
@@ -43,6 +43,11 @@ dsh plugin --profile <name> add dsh-forecast-penalty
 - **किसके लिए**: अनुबंध प्रबंधन और मूल्यांकन-निपटान टीम; कमांड लाइन जानने की ज़रूरत नहीं — सामग्री चैट में सौंप दें।
 - **आप क्या देते हैं**: वह मूल सामग्री जिस पर जाँच काम करती है (तालिका, रजिस्टर या दस्तावेज़); मूल कभी नहीं बदला जाता। Excel को पहले JSON/YAML में बदला जा सकता है, प्लेटफ़ॉर्म समर्थन हो तो चैट में भी।
 - **आपको क्या मिलता है**: «कौन-सी पंक्ति, कौन-सा कॉलम, क्या अनुपस्थित है और कैसे सुधारें» की सूची; जो जाँच नहीं चल पाई, वह `skipped` में कारण के साथ सूचीबद्ध होती है।
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-forecast-penalty-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-forecast-penalty-flow-v5-light.svg" width="100%" alt="dsh-forecast-penalty की संरचना (नियम स्कोरबोर्ड): ऊपर दो इनपुट — parseMaterial से सामग्री, 1 पंक्ति और 12 विहित स्तंभ, और सात-नियम पैक rules/forecast-penalty.yaml v2026.1 जिसे पहले only/disabled से छाना जाता है; नीचे स्कोरिंग पैनल हर नियम के लिए फ़ील्ड, जाँच का प्रकार, आधार-प्रकार से गंभीरता की सीमा और इस रन का निपटान देता है: FP-003 घोषित 88.00 को अपेक्षित 96.6 (±1.5 pp) के सामने एक सहनशीलता पैमाने पर दिखाता है, FP-004 80 × 50 = 4000 को घोषित 4000 (सहनशीलता 0.01) से मिलाता है और शेष पाँच बिना अंतर के चलते हैं; नीचे दो निकास: issues[] में एक स्थान-सहित निष्कर्ष (FP-003, पंक्ति 1, accuracy, info) और skipped[] इस रन में खाली, उन कारणों के साथ जिनसे कोई नियम वहाँ जा सकता है; अंतिम निर्णय समीक्षक का">
+</picture>
 
 ## तीन चरणों में शुरुआत
 

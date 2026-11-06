@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-forecast-penalty-flow-dark.svg">
-  <img src="docs/assets/dsh-forecast-penalty-flow-light.svg" width="100%" alt="Fluxo de dados do dsh-forecast-penalty: rows[] registro de avaliação → ferramenta forecast_penalty → pacote de regras rules/*.yaml (FP-001..FP-007) → relatório issues[] + skipped[] → decisão do revisor; a configuração entra por rulesFile / disabledRules / onlyRules / timeoutMs">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-forecast-penalty-hero-en-dark.webp">
+  <img src="docs/assets/dsh-forecast-penalty-hero-en-light.webp" width="100%" alt="Banner do dsh-forecast-penalty: à esquerda, o nome e duas linhas de valor; à direita, acima, uma linha real do registro de avaliação (período 2026-03, previsão 966, real 1000, precisão 88.00, encargo 4000, moeda CNY) com a regra que se monta em cada coluna (FP-002, FP-003, FP-004, FP-005, FP-006, FP-007) e FP-001 no cabeçalho de sujeito e mercado; abaixo, o cartão de ocorrência FP-003 —88.00 declarado contra 96.6 segundo a fórmula configurada, 8,6 pontos percentuais de diferença, acima da tolerância de 1,5— com uma régua de tolerância que desenha ambos no mesmo eixo; o relatório é issues[] 1 · skipped[] 0 e a decisão fica com quem revê">
 </picture>
 
 # dsh-forecast-penalty
@@ -43,6 +43,11 @@ Não decide se o método de avaliação se aplica, se a precisão atinge o limit
 - **Para quem é**: equipes de contratos e de liquidação de avaliações; não é preciso saber usar a linha de comando — entregue o material no chat.
 - **O que você entrega**: o material de origem sobre o qual a verificação trabalha (uma tabela, um registro ou um documento); o original nunca é modificado. O Excel pode ser convertido antes para JSON/YAML, no chat se a plataforma permitir.
 - **O que você recebe**: uma lista de «qual linha, qual coluna, o que falta e como corrigir»; toda verificação que não pôde ser executada é listada em `skipped` com o motivo.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-forecast-penalty-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-forecast-penalty-flow-v5-light.svg" width="100%" alt="Estrutura do dsh-forecast-penalty (placar de regras): duas entradas no topo —o material via parseMaterial, uma linha e 12 colunas canónicas, e o pacote de sete regras rules/forecast-penalty.yaml v2026.1 filtrado primeiro por only/disabled—; o painel de pontuação dá, por regra, o campo, o tipo de verificação, o tipo de fundamento até ao limite de gravidade e a disposição desta execução: FP-003 desenha o 88.00 declarado contra o 96.6 esperado (±1,5 pp) numa régua de tolerância, FP-004 reconcilia 80 × 50 = 4000 com o 4000 declarado (tolerância 0,01) e as outras cinco executam sem diferenças; em baixo, duas saídas: issues[] com uma ocorrência localizada (FP-003, linha 1, accuracy, info) e skipped[] vazio nesta execução, com os motivos pelos quais uma regra pode ali cair; a decisão fica com quem revê">
+</picture>
 
 ## Instalação em três passos
 
