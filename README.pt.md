@@ -49,6 +49,11 @@ Não decide se o método de avaliação se aplica, se a precisão atinge o limit
   <img src="docs/assets/dsh-forecast-penalty-flow-v5-light.svg" width="100%" alt="Estrutura do dsh-forecast-penalty (placar de regras): duas entradas no topo —o material via parseMaterial, uma linha e 12 colunas canónicas, e o pacote de sete regras rules/forecast-penalty.yaml v2026.1 filtrado primeiro por only/disabled—; o painel de pontuação dá, por regra, o campo, o tipo de verificação, o tipo de fundamento até ao limite de gravidade e a disposição desta execução: FP-003 desenha o 88.00 declarado contra o 96.6 esperado (±1,5 pp) numa régua de tolerância, FP-004 reconcilia 80 × 50 = 4000 com o 4000 declarado (tolerância 0,01) e as outras cinco executam sem diferenças; em baixo, duas saídas: issues[] com uma ocorrência localizada (FP-003, linha 1, accuracy, info) e skipped[] vazio nesta execução, com os motivos pelos quais uma regra pode ali cair; a decisão fica com quem revê">
 </picture>
 
+![dsh-forecast-penalty: execução real de terminal](docs/assets/dsh-forecast-penalty-demo.gif)
+
+*Repetição animada de uma execução real registrada neste repositório.*
+
+
 ## Instalação em três passos
 
 1. **Instalar** (escolha um canal):
