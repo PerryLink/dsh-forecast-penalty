@@ -11,6 +11,8 @@
 
 Plugin verificador de solo datos para DeepSeek Harness: lee un registro de evaluación de la precisión de la predicción (cabecera del sujeto más una fila por periodo de evaluación), aplica el paquete de reglas versionado que trae (FP-001..FP-007) y enumera solo las diferencias que puede señalar dentro del material: nunca un dictamen de cumplimiento, nunca una atribución de responsabilidad.
 
+Última verificación: DeepSeek Harness `dsh-v0.2.3-alpha.1` (2026-11-22).
+
 [Instalar](#instalación-en-tres-pasos) · [Configuración](#configuración) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
@@ -52,7 +54,6 @@ No decide si el método de evaluación es aplicable, si la precisión alcanza el
 ![dsh-forecast-penalty: ejecución real de terminal](docs/assets/dsh-forecast-penalty-demo.gif)
 
 *Repetición animada de una ejecución real registrada en este repositorio.*
-
 
 ## Instalación en tres pasos
 

@@ -11,6 +11,8 @@
 
 DeepSeek Harness के लिए केवल-डेटा वाला जाँच प्लगइन: यह एक पूर्वानुमान-सटीकता मूल्यांकन रजिस्टर पढ़ता है (विषय हेडर और प्रत्येक मूल्यांकन अवधि की एक पंक्ति), साथ आने वाले संस्करण-बद्ध नियम-पैक (FP-001..FP-007) को लागू करता है, और केवल वही अंतर गिनाता है जिन्हें सामग्री के भीतर इंगित किया जा सकता है — कभी अनुपालन का निर्णय नहीं, कभी दायित्व का निर्णय नहीं।
 
+अंतिम सत्यापन: DeepSeek Harness `dsh-v0.2.3-alpha.1` (2026-11-22).
+
 [इंस्टॉल](#तीन-चरणों-में-शुरुआत) · [कॉन्फ़िगरेशन](#कॉन्फ़िगरेशन) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
@@ -52,7 +54,6 @@ dsh plugin --profile <name> add dsh-forecast-penalty
 ![dsh-forecast-penalty का असली टर्मिनल रन](docs/assets/dsh-forecast-penalty-demo.gif)
 
 *इस रिपॉज़िटरी में दर्ज असली रन का एनिमेटेड रीप्ले।*
-
 
 ## तीन चरणों में शुरुआत
 
