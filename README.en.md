@@ -7,6 +7,8 @@
 
 # dsh-forecast-penalty
 
+Current version `0.2.13`.
+
 **Check a forecast-accuracy assessment register for completeness and assessment-charge arithmetic — you get a list of which row, which column, and what to fix; the verdict stays with the reviewer.**
 
 A data-only checker plugin for DeepSeek Harness: it reads one forecast-accuracy assessment register (a subject header plus one row per assessment period), applies the versioned rule pack it ships (FP-001..FP-007), and lists only the differences it can point to inside the material — never a compliance verdict, never a liability finding.

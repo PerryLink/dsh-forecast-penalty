@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "Forecast penalty check",
-    "description": "预测准确率考核核对（按准确率、门槛与考核单价核对考核费用的算术自洽，仅提示差异，不作出定性结论）"
+    "description": "Check a forecast-accuracy assessment register for completeness and assessment-charge arithmetic — you get a list of which row, which column, and what to fix; the verdict stays with the reviewer."
   }
 }
